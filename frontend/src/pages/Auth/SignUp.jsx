@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AuthLayouts from '../../components/layouts/AuthLayouts'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/input/Input'
-import { validateEmail } from '../../utils/helper'
+// import { validateEmail } from '../../utils/helper'
 import ProfilePhotoSelector from '../../components/input/ProfilePhotoSelector'
+import axiosInstance from '../../utils/axiosInstance'
+import { API_PATHS } from '../../utils/apiPath'
+import { UserContext } from '../../context/UserContext'
+// import uploadImage from '../../utils/uploadImage'
 
 const SignUp = () => {
 
@@ -14,19 +18,21 @@ const SignUp = () => {
 
   const [error, setError] = useState(null);
 
+  const{ updateUser } = useContext(UserContext)
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let profileImageUrl = "";
+    // let profileImageUrl = "";
 
     if (!fullName) {
       setError('please enter full name')
       return
     }
 
-    if (!validateEmail(email)) {
+    if (!email) {
       setError('please enter a valid email')
       return
     }
@@ -38,6 +44,31 @@ const SignUp = () => {
     setError('')
 
     //signup api call
+    try {
+
+      //profile picture upload
+      // if(profilePic){
+      //   const imgUploadRes = await uploadImage(profilePic)
+      //   profileImageUrl = imgUploadRes.imgUrl || ''
+      // }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+        fullName,email,password
+      })
+      const{token, user} = response.data;
+      if(token){
+        localStorage.setItem('token', token);
+        updateUser(user)
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      if(error.response && error.response.data.message){
+        setError(error.response.data.message)
+      }else{
+        setError('something went wrong');
+      }
+    }
     
   }
 
