@@ -6,6 +6,6 @@ const incomeSchema = new mongoose.Schema({
     category:{type:String, required:true},
     date:{type:Date, default:Date.now()},
     user:{type:mongoose.Schema.ObjectId, ref:'user'}
-});
+},{timestamps:true});
 
 module.exports = mongoose.model('income', incomeSchema);

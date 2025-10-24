@@ -8,7 +8,7 @@ exports.auth = async(req, res, next)=>{
             res.status(400).json('no token found');
         }
         const decode = jwt.verify(token, process.env.SECRET_KEY)
-        const user = await User.findById(decode.id);
+        const user = await User.findById(decode.id).select('-password')
         req.user = user;
         next()
     } catch (error) {

@@ -4,7 +4,7 @@ exports.addIncome = async(req, res)=>{
     const{title, amount,category,date} = req.body;
     try {
         const income = await Income.create({
-            title,amount,category,date
+            title,amount,category,date,user:req.user._id
         })
         res.status(200).json(income)
     } catch (error) {
@@ -39,5 +39,17 @@ exports.deleteIncome = async(req, res)=>{
         res.status(200).json('income deleted successfully');
     } catch (error) {
         res.status(400)
+    }
+}
+
+exports.myIncome = async(req, res)=>{
+    try {
+        const income = await Income.find({ user: req.user._id })
+        if(!income){
+            res.status(500).json('no income found')
+        }
+        res.status(200).json(income)
+    } catch (error) {
+        res.status(400).json(error.message)
     }
 }

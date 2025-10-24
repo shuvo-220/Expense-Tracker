@@ -1,7 +1,13 @@
 import React from 'react'
 import { AiFillDollarCircle } from "react-icons/ai";
+import {useSelector} from 'react-redux'
 
 const Dashboard = () => {
+
+  const{myIncome} = useSelector(state=>state.myIncome)
+
+  const totalIncome = myIncome.reduce((a,c)=>a+c.amount,0)
+
   return (
     <div className='flex flex-col md:flex-row items-center justify-center w-full gap-3'>
 
@@ -25,7 +31,7 @@ const Dashboard = () => {
               <span className='text-xl text-green-700'>
                 <AiFillDollarCircle />
               </span>
-              <span className='text-green-700 font-bold'>$564</span>
+              <span className='text-green-700 font-bold'>${totalIncome}</span>
             </div>
           </div>
 
