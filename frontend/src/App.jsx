@@ -7,6 +7,7 @@ import AddIncome from './components/AddIncome'
 import AddExpense from './components/AddExpense'
 import Register from './components/Register'
 import Login from './components/Login'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path='addexpense' element={<AddExpense />} />
           </Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   )

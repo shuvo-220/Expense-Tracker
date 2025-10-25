@@ -4,7 +4,7 @@ exports.addExpense = async(req, res)=>{
     const{title, amount,category,date} = req.body;
     try {
         const expense = await Expense.create({
-            title,amount,category,date
+            title,amount,category,date,user:req.user._id
         })
         res.status(200).json(expense)
     } catch (error) {
@@ -39,5 +39,17 @@ exports.deleteExpense = async(req, res)=>{
         res.status(200).json('expense deleted successfully');
     } catch (error) {
         res.status(400)
+    }
+}
+
+exports.myExpense = async(req, res)=>{
+    try {
+        const expense = await Expense.find({user:req.user._id})
+        if(!expense){
+            res.status(500).json('no expense found')
+        }
+        res.status(200).json(expense);
+    } catch (error) {
+        res.status(400).json(error.message);
     }
 }

@@ -86,7 +86,7 @@ const AddIncome = () => {
               
               myIncome.map((income, index) => (
                 <div key={index} className='p-2'>
-                  <div className='bg-green-100 py-2 px-3 rounded-sm'>
+                  <div className='bg-green-50 py-2 px-3 rounded-sm'>
 
                     <div className='flex items-center justify-between'>
                       <h3 className='text-lg font-semibold text-green-600'>{income.title}</h3>
