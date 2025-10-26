@@ -8,6 +8,9 @@ import AddExpense from './components/AddExpense'
 import Register from './components/Register'
 import Login from './components/Login'
 import Footer from './components/Footer'
+import ProtectedRoute from './components/ProtectedRoute'
+import Error from './components/Error'
+import PublicRoute from './components/PublicRoute'
 
 const App = () => {
   return (
@@ -15,11 +18,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/' element={<Layout />} >
-            <Route index element={<Dashboard />} />
-            <Route path='addincome' element={<AddIncome />} />
-            <Route path='addexpense' element={<AddExpense />} />
+          <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path='/' element={<ProtectedRoute><Layout /></ProtectedRoute>} >
+            <Route index element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path='addincome' element={<ProtectedRoute><AddIncome /></ProtectedRoute>} />
+            <Route path='addexpense' element={<ProtectedRoute><AddExpense /></ProtectedRoute>} />
+            <Route path='/*' element={<Error />} />
           </Route>
         </Routes>
         <Footer />

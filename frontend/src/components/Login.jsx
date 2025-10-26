@@ -28,6 +28,8 @@ const Login = () => {
     return (
         <div className='flex flex-col items-center justify-center min-h-screen'>
             <h1 className='text-2xl text-gray-500 py-3'>Login Form</h1>
+            <p>Email:shuvo@gmail.com</p>
+            <p>password:123</p>
             <div className='border border-gray-200 rounded-sm shadow-md py-7 px-8'>
                 <form onSubmit={handleSubmit} >
                     <div className='mt-3'>

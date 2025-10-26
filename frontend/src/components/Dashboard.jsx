@@ -24,7 +24,6 @@ const Dashboard = () => {
 
   const { isLoading, recent, error } = useSelector(state => state.recent);
 
-
   useEffect(() => {
     dispatch(myAllExpense())
     dispatch(getMyIncome())
@@ -63,11 +62,17 @@ const barData = {
     }
   ]
 };
+
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : ''
+
   return (
     <div className='flex flex-col md:flex-row items-center justify-center w-full gap-3'>
 
       <div className='w-1/2 bg-white p-3 min-h-screen shadow-md rounded-md'>
-        <h1 className='py-5 text-lg font-semibold text-gray-700 flex items-center gap-2'><MdAnalytics fontSize={25} />Dashboard Analytics</h1>
+        <div className='flex items-center justify-between'>
+          <h1 className='py-5 text-lg font-semibold text-gray-700 flex items-center gap-2'><MdAnalytics fontSize={25} />Dashboard Analytics</h1>
+          <span className='text-md underline'>Welcome, {user.name}</span>
+        </div>
         <div className='flex flex-col items-center justify-center md:flex-row gap-5'>
 
           <div className='p-3 shadow-md rounded-sm bg-purple-100'>
@@ -102,7 +107,7 @@ const barData = {
 
         </div>
 
-        <h2 className='py-5 text-xl text-gray-700'>Bar Chart</h2>
+        <h2 className='py-5 text-lg font-semibold text-gray-500'>Last 7 Days Transection Graph</h2>
 
         <div>
           <Bar 
