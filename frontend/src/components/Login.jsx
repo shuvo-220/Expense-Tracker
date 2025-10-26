@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { base_url } from '../baseUrl';
 
 const Login = () => {
 
@@ -12,7 +13,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/api/user/login`, {
+            const res = await axios.post(`${base_url}/api/user/login`, {
                 email, password
             })
             if (res.data) {
