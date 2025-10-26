@@ -10,7 +10,7 @@ const expense = require('./routes/expenseRoutes');
 
 app.use(express.json())
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:'https://expense-tracker-yma9.vercel.app',
     credentials:true
 }))
 
